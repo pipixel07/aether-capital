@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Play, ExternalLink, Building2, MapPin } from "lucide-react";
+import { Play, ExternalLink, Building2, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -59,22 +59,12 @@ const YouTubeShowcase = () => {
               transition={{ delay: 0.3 }}
               className="text-lg text-muted-foreground mb-6 leading-relaxed"
             >
-              Discover our flagship real estate development offering exceptional
-              returns and prime locations. Watch our detailed walkthrough to
-              explore the investment opportunity.
+              GS Capital offers carefully curated real estate opportunities 
+              with strong growth potential and strategic advantages. Our exclusive 
+              projects are available to qualified investors ready to build lasting wealth.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.4 }}
-              className="flex items-center gap-2 text-muted-foreground mb-8"
-            >
-              <MapPin className="w-5 h-5 text-primary" />
-              <span>Gmada Aerocity, Punjab</span>
-            </motion.div>
-
-            {/* Features */}
+            {/* Privacy-focused highlights */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -82,10 +72,10 @@ const YouTubeShowcase = () => {
               className="grid grid-cols-2 gap-4 mb-8"
             >
               {[
-                { label: "Expected ROI", value: "15-20%" },
-                { label: "Project Type", value: "Commercial" },
-                { label: "Investment Start", value: "₹25L" },
-                { label: "Timeline", value: "24 Months" },
+                { label: "Investment Type", value: "Exclusive" },
+                { label: "Returns", value: "Premium" },
+                { label: "Access", value: "By Inquiry" },
+                { label: "Opportunity", value: "Limited" },
               ].map((item, index) => (
                 <motion.div
                   key={item.label}

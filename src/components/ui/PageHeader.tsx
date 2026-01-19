@@ -10,7 +10,7 @@ interface PageHeaderProps {
 
 const PageHeader = ({ title, subtitle, breadcrumbs }: PageHeaderProps) => {
   return (
-    <section className="relative pt-28 md:pt-32 pb-12 md:pb-20 overflow-hidden">
+    <section className="relative pt-40 md:pt-48 lg:pt-52 pb-12 md:pb-20 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-b from-card to-background" />
       <div className="absolute inset-0 opacity-30">
