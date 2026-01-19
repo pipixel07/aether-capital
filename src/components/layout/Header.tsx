@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Phone, Mail, Clock } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Mail, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
 
@@ -30,6 +30,7 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,39 +44,93 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   }, [location]);
 
+  // Handle smooth scroll for hash links
+  const handleNavClick = (href: string, e: React.MouseEvent) => {
+    if (href.includes('#')) {
+      e.preventDefault();
+      const [path, hash] = href.split('#');
+      
+      if (location.pathname === path || (path === '/services' && location.pathname === '/services')) {
+        // Same page - smooth scroll
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        // Different page - navigate then scroll
+        navigate(href);
+      }
+    }
+  };
+
   return (
     <>
-      {/* Top Bar */}
+      {/* Top Bar - Creative Design */}
       <motion.div
-        initial={{ y: -40 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="hidden lg:block fixed top-0 left-0 right-0 z-50 bg-secondary/80 backdrop-blur-sm border-b border-border/30"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="hidden lg:block fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-secondary via-secondary/95 to-secondary border-b border-primary/20"
       >
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between h-10 text-xs">
-            <div className="flex items-center gap-6">
+          <div className="flex items-center justify-between h-12">
+            {/* Left side - Contact info with icons */}
+            <div className="flex items-center gap-8">
               <motion.a 
                 href="tel:+919875959231" 
-                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                whileHover={{ scale: 1.02 }}
+                className="flex items-center gap-3 group"
+                whileHover={{ x: 3 }}
               >
-                <Phone className="w-3.5 h-3.5 text-primary" />
-                <span>+91 9875959231</span>
+                <motion.div 
+                  className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors"
+                  whileHover={{ scale: 1.1, rotate: 10 }}
+                >
+                  <Phone className="w-4 h-4 text-primary" />
+                </motion.div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Call Us</span>
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">+91 9875959231</span>
+                </div>
               </motion.a>
+
+              <motion.div className="w-px h-8 bg-border/50" />
+              
               <motion.a 
                 href="mailto:info@gscapital.co.in" 
-                className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                whileHover={{ scale: 1.02 }}
+                className="flex items-center gap-3 group"
+                whileHover={{ x: 3 }}
               >
-                <Mail className="w-3.5 h-3.5 text-primary" />
-                <span>info@gscapital.co.in</span>
+                <motion.div 
+                  className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors"
+                  whileHover={{ scale: 1.1, rotate: -10 }}
+                >
+                  <Mail className="w-4 h-4 text-primary" />
+                </motion.div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Email</span>
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">info@gscapital.co.in</span>
+                </div>
               </motion.a>
             </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Clock className="w-3.5 h-3.5 text-primary" />
-              <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
-            </div>
+
+            {/* Right side - CTA */}
+            <motion.div 
+              className="flex items-center gap-3"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <motion.div 
+                className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20"
+                animate={{ 
+                  boxShadow: ["0 0 0 0 rgba(212, 160, 23, 0)", "0 0 0 4px rgba(212, 160, 23, 0.1)", "0 0 0 0 rgba(212, 160, 23, 0)"]
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-primary" />
+                <span className="text-xs font-medium text-primary">Venture Capitalists</span>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </motion.div>
@@ -87,8 +142,8 @@ const Header = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? "top-0 lg:top-10 bg-background/95 backdrop-blur-md shadow-lg border-b border-border/50"
-            : "top-0 lg:top-10 bg-transparent"
+            ? "top-0 lg:top-12 bg-background/95 backdrop-blur-md shadow-lg border-b border-border/50"
+            : "top-0 lg:top-12 bg-transparent"
         }`}
       >
         <div className="container mx-auto px-4 lg:px-8">
@@ -175,6 +230,7 @@ const Header = () => {
                           >
                             <Link
                               to={child.href}
+                              onClick={(e) => handleNavClick(child.href, e)}
                               className="block px-4 py-3 text-sm text-foreground/80 hover:text-primary hover:bg-primary/5 transition-all border-l-2 border-transparent hover:border-primary"
                             >
                               {child.name}
