@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, Mail, Youtube, Linkedin, Twitter } from "lucide-react";
+import { MapPin, Mail, Phone, Youtube, Linkedin, Twitter } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const footerLinks = {
@@ -39,7 +39,7 @@ const Footer = () => {
               <motion.img 
                 src={logo} 
                 alt="GS Capital" 
-                className="h-16 w-auto"
+                className="h-24 md:h-28 w-auto drop-shadow-lg"
                 whileHover={{ scale: 1.05 }}
               />
             </Link>
@@ -54,6 +54,10 @@ const Footer = () => {
               <div className="flex items-start gap-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary shrink-0 mt-1" />
                 <span>4th Floor, Centre, SCO – 255 & 256, Block-F, Gmada Aerocity, Sahibzada Ajit Singh Nagar, Punjab 140603</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <Phone className="w-4 h-4 text-primary shrink-0" />
+                <a href="tel:+919875959231" className="hover:text-primary transition-colors">+91 9875959231</a>
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4 text-primary shrink-0" />
