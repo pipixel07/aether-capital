@@ -53,23 +53,6 @@ const MorphingBlob = ({ className, delay }: { className: string; delay: number }
   />
 );
 
-// Animated text character
-const AnimatedCharacter = ({ char, index }: { char: string; index: number }) => (
-  <motion.span
-    initial={{ opacity: 0, y: 50, rotateX: 90 }}
-    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-    transition={{
-      duration: 0.5,
-      delay: 0.3 + index * 0.03,
-      type: "spring",
-      stiffness: 100,
-    }}
-    className="inline-block"
-  >
-    {char === " " ? "\u00A0" : char}
-  </motion.span>
-);
-
 // Counter animation hook
 const useAnimatedCounter = (end: number, duration: number = 2) => {
   const [value, setValue] = useState(0);
@@ -111,7 +94,7 @@ const Hero = () => {
     }
   };
 
-  const titleText = "Invest in the Future of Real Estate";
+  
 
   return (
     <section 
@@ -258,26 +241,36 @@ const Hero = () => {
             />
           </motion.div>
 
-          {/* Headline with character-by-character animation */}
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold font-heading leading-tight mb-6 overflow-hidden">
-            <span className="inline-block">
-              {titleText.split("").map((char, index) => (
-                <AnimatedCharacter key={index} char={char} index={index} />
-              ))}
-            </span>
-            <br />
+          {/* Headline with proper word wrapping */}
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold font-heading leading-tight mb-6">
+            <motion.span
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="block"
+            >
+              Invest in the Future of
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="block"
+            >
+              Real Estate
+            </motion.span>
             <motion.span 
               initial={{ opacity: 0, y: 50, scale: 0.8 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, delay: 1.2, type: "spring" }}
-              className="text-gradient-gold inline-block relative mt-2"
+              transition={{ duration: 0.8, delay: 0.7, type: "spring" }}
+              className="text-gradient-gold block relative mt-2"
             >
               Across Prime Locations
               <motion.span
                 className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{ scaleX: 1, opacity: 1 }}
-                transition={{ duration: 1, delay: 1.8 }}
+                transition={{ duration: 1, delay: 1.2 }}
               />
             </motion.span>
           </h1>
