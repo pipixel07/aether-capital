@@ -118,6 +118,7 @@ const Services = () => {
                 key={service.id}
                 id={service.id}
                 initial={{ opacity: 0, y: 50 }}
+                style={{ scrollMarginTop: "150px" }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: 0.1 }}

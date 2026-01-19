@@ -15,15 +15,23 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-// Scroll to top on route change
+// Scroll to top on route change, handle hash navigation
 const ScrollToTop = () => {
   const location = useLocation();
   
   useEffect(() => {
-    if (!location.hash) {
-      window.scrollTo(0, 0);
+    if (location.hash) {
+      // Wait for page to render then scroll to element
+      setTimeout(() => {
+        const element = document.getElementById(location.hash.slice(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   return null;
 };
