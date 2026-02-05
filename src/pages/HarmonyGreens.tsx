@@ -117,13 +117,13 @@
            <div className="grid lg:grid-cols-2 gap-12 items-center">
              {/* Image Gallery */}
              <AnimatedSection>
-               <Carousel className="w-full" opts={{ loop: true }}>
+                <Carousel className="w-full touch-pan-y" opts={{ loop: true }}>
                  <CarouselContent>
                    {galleryImages.map((image, index) => (
                      <CarouselItem key={index}>
                        <motion.div
                          whileHover={{ scale: 1.02 }}
-                         className="relative aspect-[4/3] rounded-2xl overflow-hidden glass-card cursor-pointer group"
+                          className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden glass-card cursor-pointer group"
                          onClick={() => openLightbox(index)}
                        >
                          <img
@@ -143,9 +143,28 @@
                      </CarouselItem>
                    ))}
                  </CarouselContent>
-                 <CarouselPrevious className="left-4 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20" />
-                 <CarouselNext className="right-4 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20" />
+                  <CarouselPrevious className="left-2 sm:left-4 h-8 w-8 sm:h-10 sm:w-10 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20" />
+                  <CarouselNext className="right-2 sm:right-4 h-8 w-8 sm:h-10 sm:w-10 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20" />
                </Carousel>
+
+                {/* Thumbnails */}
+                <div className="flex justify-center gap-2 mt-4 flex-wrap">
+                  {galleryImages.map((image, index) => (
+                    <motion.button
+                      key={index}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => openLightbox(index)}
+                      className="w-12 h-9 sm:w-16 sm:h-12 rounded-lg overflow-hidden border-2 border-border/30 hover:border-primary/50 transition-colors"
+                    >
+                      <img
+                        src={image.src}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.button>
+                  ))}
+                </div>
              </AnimatedSection>
  
              {/* Info */}
@@ -160,8 +179,8 @@
                      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                      Now Booking
                    </motion.span>
-                   <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-                     Independent Luxury <span className="text-gradient-gold">Floors with Lift</span>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-4">
+                      <span>Independent Luxury</span> <span className="text-gradient-gold">Floors with Lift</span>
                    </h2>
                  </div>
  
@@ -233,12 +252,12 @@
              <span className="text-primary text-sm font-semibold tracking-wider uppercase">
                Unmatched Features
              </span>
-             <h2 className="text-3xl md:text-4xl font-bold font-heading mt-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mt-4">
                Premium <span className="text-gradient-gold">Amenities</span>
              </h2>
            </AnimatedSection>
  
-           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
              {features.map((feature, index) => (
                <motion.div
                  key={feature.text}
@@ -247,12 +266,12 @@
                  viewport={{ once: true }}
                  transition={{ duration: 0.4, delay: index * 0.03 }}
                  whileHover={{ scale: 1.02, x: 5 }}
-                 className="flex items-start gap-3 p-4 rounded-xl bg-card/30 border border-border/30 hover:border-primary/30 transition-colors"
+                  className="flex items-start gap-3 p-3 sm:p-4 rounded-xl bg-card/30 border border-border/30 hover:border-primary/30 transition-colors"
                >
-                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                   <feature.icon className="w-4 h-4 text-primary" />
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                    <feature.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
                  </div>
-                 <span className="text-sm text-foreground leading-relaxed">{feature.text}</span>
+                  <span className="text-xs sm:text-sm text-foreground leading-relaxed">{feature.text}</span>
                </motion.div>
              ))}
            </div>
@@ -263,10 +282,10 @@
        <section className="py-24 section-dark">
          <div className="container mx-auto px-4 lg:px-8 text-center">
            <AnimatedSection>
-             <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-6">
                Ready to Own Your <span className="text-gradient-gold">Dream Home</span>?
              </h2>
-             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-10">
                Connect with our team to schedule a site visit and explore this 
                premium property in person.
              </p>
