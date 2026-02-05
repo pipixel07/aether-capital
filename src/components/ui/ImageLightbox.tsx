@@ -67,13 +67,13 @@ const ImageLightbox = ({
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="absolute left-4 md:left-8 z-10 p-3 rounded-full bg-card/50 border border-border/50 text-foreground hover:bg-primary/20 hover:text-primary transition-colors"
+              className="absolute left-2 sm:left-4 md:left-8 z-10 p-2 sm:p-3 rounded-full bg-card/50 border border-border/50 text-foreground hover:bg-primary/20 hover:text-primary transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
                 onPrev();
               }}
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </motion.button>
           )}
 
@@ -83,13 +83,13 @@ const ImageLightbox = ({
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              className="absolute right-4 md:right-8 z-10 p-3 rounded-full bg-card/50 border border-border/50 text-foreground hover:bg-primary/20 hover:text-primary transition-colors"
+              className="absolute right-2 sm:right-4 md:right-8 z-10 p-2 sm:p-3 rounded-full bg-card/50 border border-border/50 text-foreground hover:bg-primary/20 hover:text-primary transition-colors"
               onClick={(e) => {
                 e.stopPropagation();
                 onNext();
               }}
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </motion.button>
           )}
 
@@ -100,13 +100,13 @@ const ImageLightbox = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="relative max-w-[90vw] max-h-[85vh]"
+            className="relative max-w-[95vw] sm:max-w-[90vw] max-h-[80vh] sm:max-h-[85vh] px-2 sm:px-0"
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={images[currentIndex]?.src}
               alt={images[currentIndex]?.alt}
-              className="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain"
+              className="max-w-full max-h-[75vh] sm:max-h-[85vh] rounded-lg sm:rounded-xl shadow-2xl object-contain"
             />
             
             {/* Image counter */}

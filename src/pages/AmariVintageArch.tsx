@@ -104,13 +104,13 @@
            <div className="grid lg:grid-cols-2 gap-12 items-center">
              {/* Image Gallery */}
              <AnimatedSection>
-               <Carousel className="w-full" opts={{ loop: true }}>
+                <Carousel className="w-full touch-pan-y" opts={{ loop: true }}>
                  <CarouselContent>
                    {galleryImages.map((image, index) => (
                      <CarouselItem key={index}>
                        <motion.div
                          whileHover={{ scale: 1.02 }}
-                         className="relative aspect-[4/3] rounded-2xl overflow-hidden glass-card cursor-pointer group"
+                          className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden glass-card cursor-pointer group"
                          onClick={() => openLightbox(index)}
                        >
                          <img
@@ -130,9 +130,28 @@
                      </CarouselItem>
                    ))}
                  </CarouselContent>
-                 <CarouselPrevious className="left-4 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20" />
-                 <CarouselNext className="right-4 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20" />
+                  <CarouselPrevious className="left-2 sm:left-4 h-8 w-8 sm:h-10 sm:w-10 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20" />
+                  <CarouselNext className="right-2 sm:right-4 h-8 w-8 sm:h-10 sm:w-10 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20" />
                </Carousel>
+
+                {/* Thumbnails */}
+                <div className="flex justify-center gap-2 mt-4 flex-wrap">
+                  {galleryImages.map((image, index) => (
+                    <motion.button
+                      key={index}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => openLightbox(index)}
+                      className="w-12 h-9 sm:w-16 sm:h-12 rounded-lg overflow-hidden border-2 border-border/30 hover:border-primary/50 transition-colors"
+                    >
+                      <img
+                        src={image.src}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.button>
+                  ))}
+                </div>
              </AnimatedSection>
  
              {/* Info */}
@@ -148,9 +167,9 @@
                      Coming Soon
                    </motion.span>
                    <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-                     Boutique 3BHK <span className="text-gradient-gold">Low-Rise Residences</span>
+                      <span className="text-2xl sm:text-3xl md:text-4xl">Boutique 3BHK</span> <span className="text-gradient-gold">Low-Rise Residences</span>
                    </h2>
-                   <p className="text-lg text-muted-foreground italic">
+                    <p className="text-sm sm:text-base md:text-lg text-muted-foreground italic">
                      "When towers chase height — Amari chases perfection. Because true luxury isn't tall… it's Timeless. Elegant. Rare."
                    </p>
                  </div>
@@ -208,12 +227,12 @@
              <span className="text-primary text-sm font-semibold tracking-wider uppercase">
                Project Highlights
              </span>
-             <h2 className="text-3xl md:text-4xl font-bold font-heading mt-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mt-4">
                Not just a home, <span className="text-gradient-gold">a legacy</span>
              </h2>
            </AnimatedSection>
  
-           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 max-w-5xl mx-auto">
              {highlights.map((item, index) => (
                <motion.div
                  key={item.text}
@@ -222,12 +241,12 @@
                  viewport={{ once: true }}
                  transition={{ duration: 0.4, delay: index * 0.05 }}
                  whileHover={{ scale: 1.03, y: -5 }}
-                 className="flex items-center gap-4 p-5 rounded-xl bg-card/30 border border-border/30 hover:border-primary/30 transition-all"
+                  className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-xl bg-card/30 border border-border/30 hover:border-primary/30 transition-all"
                >
-                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                   <item.icon className="w-6 h-6 text-primary" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                    <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                  </div>
-                 <span className="text-foreground font-medium">{item.text}</span>
+                  <span className="text-sm sm:text-base text-foreground font-medium">{item.text}</span>
                </motion.div>
              ))}
            </div>
@@ -238,7 +257,7 @@
        <section className="py-24 section-dark">
          <div className="container mx-auto px-4 lg:px-8 text-center">
            <AnimatedSection>
-             <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-heading mb-6">
                Interested in <span className="text-gradient-gold">Amari Vintage Arch</span>?
              </h2>
              <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
