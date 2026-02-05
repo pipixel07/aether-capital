@@ -1,331 +1,338 @@
-import { useState } from "react";
-import Layout from "@/components/layout/Layout";
-import PageHeader from "@/components/ui/PageHeader";
-import AnimatedSection from "@/components/ui/AnimatedSection";
-import ImageLightbox from "@/components/ui/ImageLightbox";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { Building2, MapPin, CheckCircle2, ArrowRight, Calendar, Images, ZoomIn } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
-// Property images
-import property1 from "@/assets/property-1.jpg";
-import property2 from "@/assets/property-2.jpg";
-import property3 from "@/assets/property-3.jpg";
-import property4 from "@/assets/property-4.jpg";
-import property5 from "@/assets/property-5.jpg";
-
-const galleryImages = [
-  { src: property1, alt: "Jayanti Majri Farm House - Exterior View" },
-  { src: property2, alt: "Jayanti Majri Farm House - Living Room" },
-  { src: property3, alt: "Jayanti Majri Farm House - Garden & Outdoor" },
-  { src: property4, alt: "Jayanti Majri Farm House - Bedroom" },
-  { src: property5, alt: "Jayanti Majri Farm House - Aerial View" },
-];
-
-const projects = [
-  {
-    id: "jayanti-majri",
-    title: "Jayanti Majri Farm House",
-    status: "Coming Soon",
-    description: "Jayanti Majri Farm House is a serene countryside retreat offering a perfect blend of nature, privacy, and modern comfort, ideal for peaceful living and long-term investment. Surrounded by lush greenery, it promises a tranquil lifestyle away from city chaos.",
-    features: [
-      "Serene countryside location",
-      "Modern comfort amenities",
-      "Private & secure",
-      "Long-term investment potential",
-      "Lush green surroundings",
-      "Tranquil lifestyle",
-    ],
-    type: "Residential",
-  },
-];
-
-const benefits = [
-  "Strategic high-growth locations",
-  "Premium residential & commercial properties",
-  "Strong connectivity & key amenities",
-  "Future value potential",
-  "Trusted real estate options",
-  "Expert investment guidance",
-];
-
-const RealEstate = () => {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const openLightbox = (index: number) => {
-    setCurrentImageIndex(index);
-    setLightboxOpen(true);
-  };
-
-  const closeLightbox = () => setLightboxOpen(false);
-
-  const goToPrevious = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? galleryImages.length - 1 : prev - 1
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentImageIndex((prev) => 
-      prev === galleryImages.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  return (
-    <Layout>
-      <PageHeader 
-        title="Real Estate"
-        subtitle="Premium residential and commercial properties across high-growth locations."
-        breadcrumbs={[{ name: "Services", href: "/services" }, { name: "Real Estate", href: "/real-estate" }]}
-      />
-
-      {/* Intro Section */}
-      <section className="py-24 section-dark">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <AnimatedSection>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                Whether you want to buy a home, invest for long-term growth, or explore new property 
-                opportunities, GS Capital offers trusted real estate options across multiple locations. 
-                Our portfolio includes residential and commercial projects with strong connectivity, 
-                key amenities, and future value potential—helping both buyers and investors choose 
-                the right property with clarity and confidence.
-              </p>
-            </AnimatedSection>
-
-            {/* Benefits Grid */}
-            <AnimatedSection delay={0.2}>
-              <div className="grid md:grid-cols-2 gap-4">
-                {benefits.map((benefit, index) => (
-                  <motion.div
-                    key={benefit}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex items-center gap-3"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-                    <span className="text-foreground">{benefit}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </AnimatedSection>
-          </div>
-        </div>
-      </section>
-
-      {/* Property Gallery Section */}
-      <section className="py-24 section-deep">
-        <div className="container mx-auto px-4 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <motion.span 
-              className="inline-flex items-center gap-2 text-primary text-sm font-semibold tracking-wider uppercase mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <Images className="w-4 h-4" />
-              Property Gallery
-            </motion.span>
-            <h2 className="text-3xl md:text-4xl font-bold font-heading">
-              Explore Our <span className="text-gradient-gold">Properties</span>
-            </h2>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.2}>
-            <div className="max-w-5xl mx-auto">
-              <Carousel className="w-full" opts={{ loop: true }}>
-                <CarouselContent className="-ml-2 md:-ml-4">
-                  {galleryImages.map((image, index) => (
-                    <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                      <motion.div
-                        whileHover={{ y: -8, scale: 1.02 }}
-                        transition={{ duration: 0.3 }}
-                        className="relative aspect-[4/3] rounded-xl overflow-hidden glass-card cursor-pointer group"
-                        onClick={() => openLightbox(index)}
-                      >
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        {/* Overlay */}
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6"
-                        >
-                          <div className="flex items-center gap-2 text-primary font-medium">
-                            <ZoomIn className="w-5 h-5" />
-                            <span>View Full Image</span>
-                          </div>
-                        </motion.div>
-                        {/* Gold border glow on hover */}
-                        <motion.div
-                          className="absolute inset-0 border-2 border-primary/0 group-hover:border-primary/50 rounded-xl transition-all duration-300"
-                        />
-                      </motion.div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="left-0 -translate-x-1/2 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20 hover:border-primary/50" />
-                <CarouselNext className="right-0 translate-x-1/2 bg-card/80 backdrop-blur border-border/50 hover:bg-primary/20 hover:border-primary/50" />
-              </Carousel>
-
-              {/* Thumbnail strip */}
-              <div className="flex justify-center gap-3 mt-8">
-                {galleryImages.map((image, index) => (
-                  <motion.button
-                    key={index}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => openLightbox(index)}
-                    className="relative w-16 h-12 md:w-20 md:h-14 rounded-lg overflow-hidden border-2 border-border/30 hover:border-primary/50 transition-colors"
-                  >
-                    <img
-                      src={image.src}
-                      alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.button>
-                ))}
-              </div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Video Section */}
-      <section className="py-24 section-dark">
-        <div className="container mx-auto px-4 lg:px-8">
-          <AnimatedSection className="text-center mb-12">
-            <span className="text-primary text-sm font-semibold tracking-wider uppercase">
-              Featured Video
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mt-4">
-              Our Real Estate <span className="text-gradient-gold">Projects</span>
-            </h2>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.2}>
-            <div className="max-w-4xl mx-auto">
-              <motion.div 
-                className="relative aspect-video rounded-2xl overflow-hidden glass-card"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <iframe
-                  src="https://www.youtube.com/embed/HJBgAcRsyjg"
-                  title="GS Capital Real Estate Projects"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 w-full h-full"
-                />
-              </motion.div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Projects */}
-      <section className="py-24 section-deep">
-        <div className="container mx-auto px-4 lg:px-8">
-          <AnimatedSection className="text-center mb-16">
-            <span className="text-primary text-sm font-semibold tracking-wider uppercase">
-              Current Projects
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mt-4">
-              Featured <span className="text-gradient-gold">Properties</span>
-            </h2>
-          </AnimatedSection>
-
-          <div className="max-w-4xl mx-auto">
-            {projects.map((project) => (
-              <AnimatedSection key={project.id}>
-                <motion.div
-                  whileHover={{ y: -5 }}
-                  className="glass-card p-8 lg:p-12"
-                >
-                  <div className="flex flex-wrap items-center gap-4 mb-6">
-                    <motion.div 
-                      className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center"
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      <Building2 className="w-8 h-8 text-primary" />
-                    </motion.div>
-                    <div>
-                      <h3 className="text-2xl font-bold font-heading">{project.title}</h3>
-                      <div className="flex items-center gap-4 mt-1">
-                        <span className="inline-flex items-center gap-1 text-sm text-primary font-medium">
-                          <Calendar className="w-4 h-4" />
-                          {project.status}
-                        </span>
-                        <span className="inline-flex items-center gap-1 text-sm text-muted-foreground">
-                          <MapPin className="w-4 h-4" />
-                          {project.type}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                    {project.description}
-                  </p>
-
-                  <div className="grid md:grid-cols-2 gap-3">
-                    {project.features.map((feature) => (
-                      <div key={feature} className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                        <span className="text-sm text-foreground">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24 section-dark">
-        <div className="container mx-auto px-4 lg:px-8 text-center">
-          <AnimatedSection>
-            <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
-              Interested in Real Estate <span className="text-gradient-gold">Investment</span>?
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-              Connect with our team to explore premium property opportunities 
-              tailored to your investment goals.
-            </p>
-            <Button variant="hero" size="lg" asChild>
-              <Link to="/contact">
-                Schedule a Consultation
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Lightbox */}
-      <ImageLightbox
-        images={galleryImages}
-        currentIndex={currentImageIndex}
-        isOpen={lightboxOpen}
-        onClose={closeLightbox}
-        onPrev={goToPrevious}
-        onNext={goToNext}
-      />
-    </Layout>
-  );
-};
-
-export default RealEstate;
+ import { useState } from "react";
+ import Layout from "@/components/layout/Layout";
+ import PageHeader from "@/components/ui/PageHeader";
+ import AnimatedSection from "@/components/ui/AnimatedSection";
+ import { motion } from "framer-motion";
+ import { Link } from "react-router-dom";
+ import { 
+   MapPin, 
+   CheckCircle2, 
+   ArrowRight, 
+   Home, 
+   Globe, 
+   Clock,
+   Sparkles
+ } from "lucide-react";
+ import { Button } from "@/components/ui/button";
+ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+ 
+ // Property images - using dynamic imports for cleaner code
+ import harmonyGreens from "@/assets/properties/harmony-greens-1.jpeg";
+ import amariVintage from "@/assets/properties/amari-1.png";
+ import farmhouse from "@/assets/properties/farmhouse-3.jpeg";
+ 
+ const domesticProperties = [
+   {
+     id: "harmony-greens",
+     title: "Harmony Greens",
+     tagline: "3, 3+1, 5, 5+1 BHK Independent Luxury Floors with Lift",
+     location: "Sector-5, Sanauli Road, Zirakpur",
+     status: "Now Booking",
+     image: harmonyGreens,
+     highlights: ["Gated Community", "European Architecture", "24x7 Power Backup"],
+     comingSoon: false,
+     link: "/real-estate/harmony-greens",
+   },
+   {
+     id: "amari-vintage-arch",
+     title: "Amari Vintage Arch",
+     tagline: "Boutique 3BHK Low-Rise Residences (2240 sq.ft.)",
+     location: "IT City, Airport Road, Mohali",
+     status: "Coming Soon",
+     image: amariVintage,
+     highlights: ["RERA Approved", "SBI Approved", "5 Mins from Airport"],
+     comingSoon: true,
+     link: "/real-estate/amari-vintage-arch",
+   },
+   {
+     id: "luxury-farmhouse",
+     title: "Luxury Farmhouse",
+     tagline: "Jayanti Majri - Serene Countryside Retreat",
+     location: "Jayanti Majri",
+     status: "Coming Soon",
+     image: farmhouse,
+     highlights: ["Private & Secure", "Lush Green Surroundings", "Long-term Investment"],
+     comingSoon: true,
+     link: "/real-estate/luxury-farmhouse",
+   },
+ ];
+ 
+ const benefits = [
+   "Strategic high-growth locations",
+   "Premium residential & commercial properties",
+   "Strong connectivity & key amenities",
+   "Future value potential",
+   "Trusted real estate options",
+   "Expert investment guidance",
+ ];
+ 
+ const PropertyCard = ({ property }: { property: typeof domesticProperties[0] }) => {
+   return (
+     <motion.div
+       initial={{ opacity: 0, y: 30 }}
+       whileInView={{ opacity: 1, y: 0 }}
+       viewport={{ once: true }}
+       transition={{ duration: 0.5 }}
+       whileHover={{ y: -8 }}
+       className="relative glass-card overflow-hidden group"
+     >
+       {/* Coming Soon Badge */}
+       {property.comingSoon && (
+         <div className="absolute top-4 right-4 z-10">
+           <motion.div
+             initial={{ scale: 0 }}
+             animate={{ scale: 1 }}
+             className="flex items-center gap-1.5 bg-amber-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold"
+           >
+             <Clock className="w-3 h-3" />
+             Coming Soon
+           </motion.div>
+         </div>
+       )}
+ 
+       {/* Image */}
+       <div className="relative aspect-[16/10] overflow-hidden">
+         <img
+           src={property.image}
+           alt={property.title}
+           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+         />
+         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+         
+         {/* Status Badge */}
+         {!property.comingSoon && (
+           <div className="absolute bottom-4 left-4">
+             <motion.div
+               initial={{ x: -20, opacity: 0 }}
+               whileInView={{ x: 0, opacity: 1 }}
+               className="flex items-center gap-1.5 bg-green-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold"
+             >
+               <Sparkles className="w-3 h-3" />
+               {property.status}
+             </motion.div>
+           </div>
+         )}
+       </div>
+ 
+       {/* Content */}
+       <div className="p-6">
+         <h3 className="text-xl md:text-2xl font-bold font-heading mb-2 group-hover:text-primary transition-colors">
+           {property.title}
+         </h3>
+         <p className="text-primary text-sm font-medium mb-3">{property.tagline}</p>
+         <div className="flex items-center gap-2 text-muted-foreground text-sm mb-4">
+           <MapPin className="w-4 h-4 shrink-0" />
+           <span>{property.location}</span>
+         </div>
+ 
+         {/* Highlights */}
+         <div className="flex flex-wrap gap-2 mb-6">
+           {property.highlights.map((highlight) => (
+             <span
+               key={highlight}
+               className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+             >
+               {highlight}
+             </span>
+           ))}
+         </div>
+ 
+         {/* CTA */}
+         {property.comingSoon ? (
+           <Button variant="outline" className="w-full" disabled>
+             <Clock className="w-4 h-4 mr-2" />
+             Coming Soon
+           </Button>
+         ) : (
+           <Button variant="hero" className="w-full" asChild>
+             <Link to={property.link}>
+               View Details
+               <ArrowRight className="w-4 h-4 ml-2" />
+             </Link>
+           </Button>
+         )}
+       </div>
+     </motion.div>
+   );
+ };
+ 
+ const RealEstate = () => {
+   const [activeTab, setActiveTab] = useState("domestic");
+ 
+   return (
+     <Layout>
+       <PageHeader 
+         title="Real Estate"
+         subtitle="Premium residential and commercial properties across high-growth locations."
+         breadcrumbs={[{ name: "Services", href: "/services" }, { name: "Real Estate", href: "/real-estate" }]}
+       />
+ 
+       {/* Intro Section */}
+       <section className="py-24 section-dark">
+         <div className="container mx-auto px-4 lg:px-8">
+           <div className="max-w-4xl mx-auto">
+             <AnimatedSection>
+               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+                 Whether you want to buy a home, invest for long-term growth, or explore new property 
+                 opportunities, GS Capital offers trusted real estate options across multiple locations. 
+                 Our portfolio includes residential and commercial projects with strong connectivity, 
+                 key amenities, and future value potential—helping both buyers and investors choose 
+                 the right property with clarity and confidence.
+               </p>
+             </AnimatedSection>
+ 
+             {/* Benefits Grid */}
+             <AnimatedSection delay={0.2}>
+               <div className="grid md:grid-cols-2 gap-4">
+                 {benefits.map((benefit, index) => (
+                   <motion.div
+                     key={benefit}
+                     initial={{ opacity: 0, x: -20 }}
+                     whileInView={{ opacity: 1, x: 0 }}
+                     viewport={{ once: true }}
+                     transition={{ duration: 0.4, delay: index * 0.1 }}
+                     className="flex items-center gap-3"
+                   >
+                     <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
+                     <span className="text-foreground">{benefit}</span>
+                   </motion.div>
+                 ))}
+               </div>
+             </AnimatedSection>
+           </div>
+         </div>
+       </section>
+ 
+       {/* Properties Section with Tabs */}
+       <section className="py-24 section-deep">
+         <div className="container mx-auto px-4 lg:px-8">
+           <AnimatedSection className="text-center mb-12">
+             <span className="text-primary text-sm font-semibold tracking-wider uppercase">
+               Our Portfolio
+             </span>
+             <h2 className="text-3xl md:text-4xl font-bold font-heading mt-4 mb-8">
+               Explore <span className="text-gradient-gold">Properties</span>
+             </h2>
+ 
+             {/* Tabs */}
+             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+               <TabsList className="inline-flex h-auto p-1.5 bg-card/50 backdrop-blur border border-border/50 rounded-full mb-12">
+                 <TabsTrigger 
+                   value="domestic"
+                   className="flex items-center gap-2 px-6 py-3 rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
+                 >
+                   <Home className="w-4 h-4" />
+                   Domestic
+                 </TabsTrigger>
+                 <TabsTrigger 
+                   value="international"
+                   className="flex items-center gap-2 px-6 py-3 rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
+                 >
+                   <Globe className="w-4 h-4" />
+                   International
+                 </TabsTrigger>
+               </TabsList>
+ 
+               <TabsContent value="domestic" className="mt-0">
+                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                   {domesticProperties.map((property) => (
+                     <PropertyCard key={property.id} property={property} />
+                   ))}
+                 </div>
+               </TabsContent>
+ 
+               <TabsContent value="international" className="mt-0">
+                 <motion.div
+                   initial={{ opacity: 0, scale: 0.95 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   className="max-w-2xl mx-auto text-center py-20"
+                 >
+                   <motion.div
+                     animate={{ 
+                       y: [0, -10, 0],
+                       rotate: [0, 5, -5, 0]
+                     }}
+                     transition={{ 
+                       duration: 4,
+                       repeat: Infinity,
+                       ease: "easeInOut"
+                     }}
+                     className="w-24 h-24 mx-auto mb-8 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center"
+                   >
+                     <Globe className="w-12 h-12 text-primary" />
+                   </motion.div>
+                   <h3 className="text-2xl md:text-3xl font-bold font-heading mb-4">
+                     International Properties
+                   </h3>
+                   <p className="text-lg text-muted-foreground mb-6">
+                     Exciting international real estate opportunities coming soon. 
+                     Stay tuned for premium global investment options.
+                   </p>
+                   <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 border border-primary/20 rounded-full text-primary font-semibold">
+                     <Clock className="w-5 h-5" />
+                     Coming Soon
+                   </div>
+                 </motion.div>
+               </TabsContent>
+             </Tabs>
+           </AnimatedSection>
+         </div>
+       </section>
+ 
+       {/* Video Section */}
+       <section className="py-24 section-dark">
+         <div className="container mx-auto px-4 lg:px-8">
+           <AnimatedSection className="text-center mb-12">
+             <span className="text-primary text-sm font-semibold tracking-wider uppercase">
+               Featured Video
+             </span>
+             <h2 className="text-3xl md:text-4xl font-bold font-heading mt-4">
+               Our Real Estate <span className="text-gradient-gold">Projects</span>
+             </h2>
+           </AnimatedSection>
+ 
+           <AnimatedSection delay={0.2}>
+             <div className="max-w-4xl mx-auto">
+               <motion.div 
+                 className="relative aspect-video rounded-2xl overflow-hidden glass-card"
+                 whileHover={{ scale: 1.02 }}
+                 transition={{ duration: 0.3 }}
+               >
+                 <iframe
+                   src="https://www.youtube.com/embed/HJBgAcRsyjg"
+                   title="GS Capital Real Estate Projects"
+                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                   allowFullScreen
+                   className="absolute inset-0 w-full h-full"
+                 />
+               </motion.div>
+             </div>
+           </AnimatedSection>
+         </div>
+       </section>
+ 
+       {/* CTA */}
+       <section className="py-24 section-deep">
+         <div className="container mx-auto px-4 lg:px-8 text-center">
+           <AnimatedSection>
+             <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">
+               Interested in Real Estate <span className="text-gradient-gold">Investment</span>?
+             </h2>
+             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
+               Connect with our team to explore premium property opportunities 
+               tailored to your investment goals.
+             </p>
+             <Button variant="hero" size="lg" asChild>
+               <Link to="/contact">
+                 Schedule a Consultation
+                 <ArrowRight className="ml-2 w-4 h-4" />
+               </Link>
+             </Button>
+           </AnimatedSection>
+         </div>
+       </section>
+     </Layout>
+   );
+ };
+ 
+ export default RealEstate;
