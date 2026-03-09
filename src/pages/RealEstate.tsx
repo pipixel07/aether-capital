@@ -17,22 +17,10 @@
  import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
  
  // Property images - using dynamic imports for cleaner code
- import harmonyGreens from "@/assets/properties/harmony-greens-1.jpeg";
  import amariVintage from "@/assets/properties/amari-1.png";
  import farmhouse from "@/assets/properties/farmhouse-3.jpeg";
  
  const domesticProperties = [
-   {
-     id: "harmony-greens",
-     title: "Harmony Greens",
-     tagline: "3, 3+1, 5, 5+1 BHK Independent Luxury Floors with Lift",
-     location: "Sector-5, Sanauli Road, Zirakpur",
-     status: "Now Booking",
-     image: harmonyGreens,
-     highlights: ["Gated Community", "European Architecture", "24x7 Power Backup"],
-     comingSoon: false,
-     link: "/real-estate/harmony-greens",
-   },
    {
      id: "amari-vintage-arch",
      title: "Amari Vintage Arch",
